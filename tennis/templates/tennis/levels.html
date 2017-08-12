@@ -1,0 +1,33 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+	{% block title_div %}
+		<div id="title">
+			<h1>This is title of page</h1>
+		</div>
+	{% endblock %}
+	{% block menu_div %}
+		<div id="menu">
+			<div id="home">
+				<a href="{% url 'home:index' %}">Home</a>
+			</div>
+			<div id="quizes">
+				<a href="{% url 'home:quizes' %}">Quizes</a>
+			</div>
+			<div id="about">
+				<a href="{% url 'home:about' %}">About</a>
+			</div>
+			<div id="contact">
+				<a href="{% url 'home:contact' %}">Contact</a>
+			</div>
+		</div>
+	{% endblock %}
+		{% block content_div %}
+		<div id="content">
+			<h3>Choose level of quiz</h3>
+			<a href="{% url 'tennis:easy' %}">Easy</a>
+			<a href="{% url 'tennis:medium' %}">Medium</a>
+			<a href="{% url 'tennis:hard' %}">Hard</a>
+		</div>
+	{% endblock %}
+{% endblock %}

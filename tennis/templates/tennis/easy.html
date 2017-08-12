@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+	{% block content_div %}
+		{% for quest in chosen_questions %}
+			{{ quest.question }}
+			<form action="{% url 'tennis:easy' %}" method="post">
+				{% csrf_token %}
+				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.first_answ }}
+				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.second_answ }}
+				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.third_answ }}
+				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.fourth_answ }}
+		{% endfor %}
+				<input type="submit" value="Next" />
+			</form>
+	{% endblock %}
+{% endblock %}
