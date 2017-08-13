@@ -1,14 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Tennis
 
 # Create your views here.
-def index(request):
-
-
-	return render(request, 'tennis/index.html')
-
-
 def levels(request):
 
 
@@ -17,8 +12,20 @@ def levels(request):
 
 def easy(request):
 
+
 	chosen_questions = Tennis.objects.all()
-	return render(request, "tennis/easy.html", {'chosen_questions': chosen_questions})
+	paginator = Paginator(chosen_questions, 1)
+
+	page = request.GET.get('page')
+
+	try:
+		questions = paginator.page(page)
+	except PageNotAnInteger:
+		questions = paginator.page(1)
+	except EmptyPage:
+		questions = paginator.page(paginator.num_pages)
+
+	return render(request, "tennis/easy.html", {'chosen_questions': questions})
 
 
 def medium(request):
@@ -31,3 +38,9 @@ def hard(request):
 
 
 	return HttpResponse("Hard test!")
+
+
+def submit(request):
+
+
+	return HttpResponse("Thank you for answering questions!")

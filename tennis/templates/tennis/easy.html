@@ -2,20 +2,39 @@
 
 {% block content %}
 	{% block content_div %}
-		{% for quest in chosen_questions %}
-			{{ quest.question }}
-			<form action="{% url 'tennis:easy' %}" method="post">
-				{% csrf_token %}
-				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.first_answ }}
-				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.second_answ }}
-				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.third_answ }}
-				<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.fourth_answ }}
-		{% endfor %}
-				<input type="submit" value="Next" />
-			</form>
+			<div class="question">
+			{% for quest in chosen_questions %}
+				{{ quest.question }}<br>
+				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.first_answ }}<br>
+				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.second_answ }}<br>
+				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.third_answ }}<br>
+				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+				{{ quest.fourth_answ }}<br>
+			{% endfor %}
+			</div>
+		<div class="pagination">
+			<span class="step-links">
+				<span class="current">
+					Page {{ chosen_questions.number }} of {{ chosen_questions.paginator.num_pages }}
+				</span>
+				{% if chosen_questions.number < chosen_questions.paginator.num_pages %}
+					<a href="?page={{ chosen_questions.next_page_number }}">next</a>
+					<form action="?page={{ chosen_questions.next_page_number }}" method="post">
+						{% csrf_token %}
+						<input type="submit" value="Submit" />
+					</form>
+				{% endif %}
+				{% if chosen_questions.number == chosen_questions.paginator.num_pages %}
+				<a href="{% url 'tennis:submit' %}">next</a>
+					<form action="{% url 'tennis:submit' %}" method="post">
+						{% csrf_token %}
+						<input type="submit" value="Submit" />
+					</form>
+				{% endif %}
+			</span>
+		</div>
 	{% endblock %}
 {% endblock %}
