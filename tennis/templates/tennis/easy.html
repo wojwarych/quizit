@@ -1,40 +1,59 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
+
 	{% block content_div %}
-			<div class="question">
-			{% for quest in chosen_questions %}
+	
+	{% for quest in chosen_questions %}
+	<div class="container">
+		<div class="quiz-content">
+			<div class="container-fluid">
 				{{ quest.question }}<br>
-				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.first_answ }}<br>
-				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.second_answ }}<br>
-				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.third_answ }}<br>
-				<input type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-				{{ quest.fourth_answ }}<br>
-			{% endfor %}
+				<label class="form-check-label">
+		    		<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" checked>
+		    		{{ quest.first_answ }}
+		  		</label><br>
+		  		<label class="form-check-label">
+			    	<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+			    	{{ quest.second_answ }}
+			  	</label><br>
+				<label class="form-check-label">
+		    		<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+		    		{{ quest.third_answ }}
+			  	</label><br>
+			  	<label class="form-check-label">
+			   		<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+			   		{{ quest.fourth_answ }}
+		  		</label>
 			</div>
+	{% endfor %}
+		</div>	
 		<div class="pagination">
 			<span class="step-links">
-				<span class="current">
-					Page {{ chosen_questions.number }} of {{ chosen_questions.paginator.num_pages }}
-				</span>
 				{% if chosen_questions.number < chosen_questions.paginator.num_pages %}
 					<a href="?page={{ chosen_questions.next_page_number }}">next</a>
-					<form action="?page={{ chosen_questions.next_page_number }}" method="post">
+					<form action="?page={{ chosen_questions.next_page_number }}" method="get">
 						{% csrf_token %}
 						<input type="submit" value="Submit" />
 					</form>
 				{% endif %}
 				{% if chosen_questions.number == chosen_questions.paginator.num_pages %}
-				<a href="{% url 'tennis:submit' %}">next</a>
-					<form action="{% url 'tennis:submit' %}" method="post">
-						{% csrf_token %}
-						<input type="submit" value="Submit" />
-					</form>
+					<a href="{% url 'tennis:submit' %}">next</a>
+						<form action="{% url 'tennis:submit' %}" method="get">
+							{% csrf_token %}
+							<input type="submit" value="Submit" />
+						</form>
 				{% endif %}
 			</span>
 		</div>
+		<div class="progress">
+			{% for value in progress_list %}
+	  		<div class="progress-bar" role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value }}%;">
+	    	<span class="sr-only">{{ value }}%</span>
+	    	{% endfor %}
+	  		</div>
+		</div>
+	</div>
 	{% endblock %}
+
 {% endblock %}

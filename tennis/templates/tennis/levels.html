@@ -1,33 +1,56 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
+
 	{% block title_div %}
-		<div id="title">
-			<h1>This is title of page</h1>
+		<div class="page-header">
+		  <h1>Quiz It!<br><small>Check your knowledge in a given topic!</small></h1>
 		</div>
 	{% endblock %}
+
 	{% block menu_div %}
-		<div id="menu">
-			<div id="home">
-				<a href="{% url 'home:index' %}">Home</a>
-			</div>
-			<div id="quizes">
-				<a href="{% url 'home:quizes' %}">Quizes</a>
-			</div>
-			<div id="about">
-				<a href="{% url 'home:about' %}">About</a>
-			</div>
-			<div id="contact">
-				<a href="{% url 'home:contact' %}">Contact</a>
-			</div>
-		</div>
+	<nav class="navbar navbar-default navbar-inverse">
+		<div class="container-fluid">
+	   	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    	<ul class="nav navbar-nav">
+	        	<li class="active"><a href="{% url 'home:index' %}">Home</a></li>
+	        	<li class="dropdown">
+	          		<a href="{% url 'home:quizes' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizes<span class="caret"></span></a>
+	          		<ul class="dropdown-menu">
+	            		<li><a href="#">Literature</a></li>
+	            		<li><a href="#">Music</a></li>
+	            		<li><a href="{% url 'tennis:levels' %}">Tennis</a></li>
+	          		</ul>
+	        	</li>
+	        	<li><a href="{% url 'home:about' %}">About</a></li>
+	        	<li><a href="{% url 'home:contact' %}">Contact</a></li>
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  	</div><!-- /.container-fluid -->
+	</nav>
 	{% endblock %}
-		{% block content_div %}
-		<div id="content">
+
+	{% block content_div %}
+		<div class="main-content">
 			<h3>Choose level of quiz</h3>
-			<a href="{% url 'tennis:easy' %}">Easy</a>
-			<a href="{% url 'tennis:medium' %}">Medium</a>
-			<a href="{% url 'tennis:hard' %}">Hard</a>
+			<div class="center-block">
+				<a href="{% url 'tennis:easy' %}" class="level-url">
+					<button type="button" class="btn btn-success">
+					<span style="font-size: 25px;">Easy</span>
+					</button>
+				</a>
+				<a href="{% url 'tennis:medium' %}" class="level-url">
+					<button type="button" class="btn btn-success">
+					<span style="font-size: 25px;">Medium</span>
+					</button>
+				</a>
+				<a href="{% url 'tennis:hard' %}" class="level-url">
+					<button type="button" class="btn btn-success">
+					<span style="font-size: 25px;">Hard</span>
+					</button>
+				</a>
+			</div>
 		</div>
 	{% endblock %}
+
 {% endblock %}
