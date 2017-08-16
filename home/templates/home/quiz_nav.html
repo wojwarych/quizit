@@ -1,36 +1,57 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
+
 	{% block title_div %}
 		<div class="page-header">
-		 <h1>Quiz It!<br><small>Check your knowledge in a given topic!</small></h1>
+			<h1>
+				<a href="{% url 'home:index' %}">
+					Quiz It!<br><small>Check your knowledge in a given topic!</small>
+				</a>
+			</h1>
 		</div>
 	{% endblock %}
+
 	{% block menu_div %}
-	<nav class="navbar navbar-default navbar-inverse">
-		<div class="container-fluid">
-	   	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	    	<ul class="nav navbar-nav">
-	        	<li class="active"><a href="{% url 'home:index' %}">Home<span class="sr-only">(current)</span></a></li>
-	        	<li class="dropdown">
-	          		<a href="{% url 'home:quizes' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizes<span class="caret"></span></a>
-	          		<ul class="dropdown-menu">
-	            		<li><a href="#">Literature</a></li>
-	            		<li><a href="#">Music</a></li>
-	            		<li><a href="{% url 'tennis:levels' %}">Tennis</a></li>
-	          		</ul>
-	          	<li><a href="{% url 'home:about' %}">About</a></li>
-	        	<li><a href="{% url 'home:contact' %}">Contact</a></li>
-	        	</li>
-	      	</ul>
-	    </div><!-- /.navbar-collapse -->
-	  	</div><!-- /.container-fluid -->
-	</nav>
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="{% url 'home:index' %}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="dropdown">
+						<a href="{% url 'home:quizes' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizes<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Literature</a></li>
+							<li><a href="#">Music</a></li>
+							<li><a href="{% url 'tennis:levels' %}">Tennis</a></li>
+						</ul>
+					<li><a href="{% url 'home:about' %}">About</a></li>
+					<li><a href="{% url 'home:contact' %}">Contact</a></li>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
 	{% endblock %}
+
 	{% block content_div %}
-		<div id="content">
-			<div>
-			<a href="{% url 'tennis:levels' %}">Tennis Quiz</a>
+		<div class="container">
+			<div class="main-content">
+				<a href="#">
+					<button type="button" class="btn btn-success">
+						<span style="font-size: 18px;">Literature Quiz</span>
+					</button>
+				</a>
+				<a href="#">
+					<button type="button" class="btn btn-success">
+						<span style="font-size: 18px;">Music Quiz</span>
+					</button>
+				</a>
+				<a href="{% url 'tennis:levels' %}">
+					<button type="button" class="btn btn-success">
+						<span style="font-size: 18px;">Tennis Quiz</span>
+					</button>
+				</a>
 			</div>
 		</div>
 	{% endblock %}

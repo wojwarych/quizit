@@ -1,15 +1,32 @@
 @media (min-width: 768px){
-    html body {
-        background-color: #ececec;
-        height: 100%
-    }
-    body {
-        font-family: 'Lato', sans-serif;
-        height: 100%
-    }
-    h1 {
-        font-weight: bold;
-    }
+	html body {
+		background-color: #ececec;
+		height: 100%
+	}
+	body {
+		font-family: 'Lato', sans-serif;
+		height: 100%
+	}
+	h1 {
+		font-weight: bold;
+	}
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+	a:hover {
+		text-decoration: inherit;
+		color: #515151;
+	}
+	a:active {
+		color: #898989;
+	}
+	p {
+		text-align: justify;
+		font-size: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
     .navbar-nav {
         margin: 0 auto;
         display: table;
@@ -22,35 +39,39 @@
         float: none;
         text-align: center;
     }
-    .page-header {
-        padding-bottom:9px;
-        margin:40px 0 20px;
-        border-bottom: none;
-        text-align: center;
-    }
-    .btn.btn-success{
-        height: 75px;
-        width: 150px;
-    }
-    .main-content {
-        text-align: center;
-        padding-top: 25px;
-    }
-    .center-block{
-        padding-top: 35px;
-    }
-
-    .center-block > a {
-        text-decoration: none;
-    }
-    .quiz-content{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .quiz-content > .container-fluid{
-        text-align: left;
-    }
+	.page-header {
+		padding-bottom:9px;
+		margin:40px 0 20px;
+		border-bottom: none;
+		text-align: center;
+		text-decoration: none;
+	}
+	.btn.btn-success{
+		height: 75px;
+		width: 150px;
+	}
+	.container > .description {
+		padding-top: 50px;
+		padding-bottom: 25px;
+	}
+	.container > .main-content {
+		text-align: justify;
+		padding-top: 25px;
+	}
+	.center-block{
+		padding-top: 35px;
+	}
+	.center-block > a {
+		text-decoration: none;
+	}
+	.quiz-content{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+	.quiz-content > .container-fluid{
+		text-align: left;
+	}
 }
