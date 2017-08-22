@@ -62,7 +62,7 @@ def easy(request):
 
 	return render(
 		request,
-		"tennis/easy.html",
+		'tennis/questions_level.html',
 		context)
 
 
@@ -100,7 +100,7 @@ def medium(request):
 
 	return render(
 		request,
-		"tennis/easy.html",
+		'tennis/questions_level.html',
 		context)
 
 
@@ -138,7 +138,7 @@ def hard(request):
 
 	return render(
 		request,
-		"tennis/easy.html",
+		'tennis/questions_level.html',
 		context)
 
 
