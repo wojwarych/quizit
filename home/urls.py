@@ -10,5 +10,4 @@ urlpatterns = [
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^quizes/$', views.quizes, name='quizes'),
 	url(r'^posts/(?P<post_id>\d+)/$', views.post, name='post'),
-	url(r'^msg/$', views.send_msg, name='send_msg')
 ]
