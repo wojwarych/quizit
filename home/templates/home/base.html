@@ -23,6 +23,13 @@
 		{% block content_div %}
 		{% endblock %}
 	{% endblock %}
+	{% block footer %}
+		<footer class="footer">
+			<div class="container-fluid">
+				<p class="text-muted">Place sticky footer content here.</p>
+		  	</div>
+		</footer>
+	{% endblock %}
 	<script src="{% static 'home/js/jquery-3.2.1.slim.min.js' %}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="{% static 'home/js/bootstrap.min.js' %}"></script>

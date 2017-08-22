@@ -8,29 +8,38 @@
 			<div class="container">
 				<div class="quiz-content">
 					<div class="container-fluid">
-						{{ quest.question }}<br>
-						<label class="form-check-label">
-							<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" checked>
-							{{ quest.first_answ }}
-						</label><br>
-						<label class="form-check-label">
-							<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-							{{ quest.second_answ }}
-						</label><br>
-						<label class="form-check-label">
-							<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-							{{ quest.third_answ }}
-						</label><br>
-						<label class="form-check-label">
-							<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-							{{ quest.fourth_answ }}
-						</label>
+						<div class="quest-name">
+							<span style="font-weight: 800; font-size: 20px;">{{ quest.question }}</span>
+						</div>
+						<div class="question-option">
+							<label class="form-check-label">
+								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" checked>
+								{{ quest.first_answ }}
+							</label>
+						</div>
+						<div class="question-option">
+							<label class="form-check-label">
+								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+								{{ quest.second_answ }}
+							</label><br>
+						</div>
+						<div class="question-option">
+							<label class="form-check-label">
+								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+								{{ quest.third_answ }}
+							</label><br>
+						</div>
+						<div class="question-option">
+							<label class="form-check-label">
+								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+								{{ quest.fourth_answ }}
+							</label>
+						</div>
 					</div>
 				</div>	
 		{% endfor %}
 				<div class="pagination">
 					{% if chosen_questions.number < chosen_questions.paginator.num_pages %}
-						<a href="?page={{ chosen_questions.next_page_number }}">next</a>
 						<form action="?page={{ chosen_questions.next_page_number }}" method="get">
 							{% csrf_token %}
 							<a href="?page={{ chosen_questions.next_page_number }}">
