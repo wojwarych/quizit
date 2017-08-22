@@ -45,7 +45,7 @@
 				{% csrf_token %}
 					{{ form.as_p }}
 					<div class="send-button">
-						<a href="{% url 'home:send_msg' %}"><button type="submit" class="btn btn-info">Send message</button></a>
+						<button type="submit" class="btn btn-info">Send message</button>
 					</div>
 				</div>
 			</form>
