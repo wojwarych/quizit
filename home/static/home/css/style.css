@@ -16,6 +16,7 @@
 	}
 	footer {
 		background-color: #222;
+		padding-top: 10px;
 	}
 	a:link, a:visited {
 		text-decoration: inherit;
@@ -165,10 +166,45 @@
     	-moz-border-radius: 5px;
     	border-radius: 5px;
 	}
+	.field-wrapper{
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	.send-button {
+		padding-bottom: 5px;
+	}
 	.send-button > button {
-		padding-top: 5px;
+		padding-top: 2px;
 		width: 125px;
 		height: 50px;
 		text-align: center;
 		font-size: 15px;
+	}
+	.wrapped-content {
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	.wrapped-content > textarea {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		font-family: inherit;
+		-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
+	}
+	.wrapped-content > textarea::placeholder {
+		color: #5bc0de;
+		opacity: 0.75;
+	}
+	.wrapped-content > input {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		font-family: inherit;
+		-webkit-border-radius: 3px;
+    	-moz-border-radius: 3px;
+    	border-radius: 3px;
+	}
+	.wrapped-content > input::placeholder {
+		color: #5bc0de;
+		opacity: 0.75;
 	}

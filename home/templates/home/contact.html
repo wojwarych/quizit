@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load extra_tags %}
 
 {% block content %}
 
@@ -41,14 +42,26 @@
 					<p>Are you interested in sending me some feedback? What you think of this page? What's your opinion? Any suggestions?</p><p>Feel free to send me an e-mail.</p><p>Check out also my <span style="font-weight:800;"><a target="_blank" href="https:\\github.com\wojwarych">github</a></span> account!</p>
 				</div>
 			</div>
-			<form role="form" action="" method="post">
-				{% csrf_token %}
-					{{ form.as_p }}
-					<div class="send-button">
-						<button type="submit" class="btn btn-info">Send message</button>
-					</div>
-				</div>
-			</form>
+			<div class="contact-form">
+				<form role="form" action="" method="post">
+					{% csrf_token %}
+						{{ form.non_field_errors }}
+							<div class="field-wrapper">
+								<div class="wrapped-content">
+									{{ form.name|placeholder:'Your name...' }}
+								</div>
+								<div class="wrapped-content">
+									{{ form.email|placeholder:'Your e-mail...' }}
+								</div>
+								<div class="wrapped-content">
+									{{ form.message|placeholder:'Write your message here...'  }}
+								</div>
+							</div>
+							<div class="send-button">
+								<button type="submit" class="btn btn-info">Send message</button>
+							</div>
+				</form>
+			</div>
 		</div>
 	{% endblock %}
 
