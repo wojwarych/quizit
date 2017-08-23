@@ -76,28 +76,6 @@
 	.center-block > a {
 		text-decoration: none;
 	}
-	.quiz-content{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		min-height: 568px;
-	}
-	.quiz-content > .container-fluid{
-		text-align: left;
-		width: 100%;
-	}
-	.container-fluid > .quest-name{
-		text-align: left;
-		width: 100%;
-		min-height: 40px;		
-	}
-	.container-fluid > .question-option{
-		text-align: left;
-		width: 100%;
-		min-height: 80px;		
-	}
 	.article-header{
 		font-size: 20px;
 		font-weight: 800;
@@ -207,4 +185,26 @@
 	.wrapped-content > input::placeholder {
 		color: #5bc0de;
 		opacity: 0.75;
+	}
+	.quiz-content{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 568px;
+	}
+	.quiz-content > .quiz-question{
+		text-align: left;
+		font-size: 25px;
+		font-weight: 800;
+		padding-bottom: 25px;
+		width: 100%;
+		min-height: 25px;		
+	}
+	.quiz-content > .quiz-option{
+		text-align: left;
+		width: 100%;
+		min-height: 65px;
+		font-size: 18px;		
 	}
