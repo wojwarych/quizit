@@ -23,12 +23,12 @@ class EasyQuest(models.Model):
 
 	objects = UsersManager()
 
-	question = models.CharField(max_length=200, default='some answ')
-	first_answ = models.CharField(max_length=50, default='some answ')
-	second_answ = models.CharField(max_length=50, default='some answ')
-	third_answ = models.CharField(max_length=50, default='some answ')
-	fourth_answ = models.CharField(max_length=50, default='some answ')
-	good_answ = models.IntegerField(default=0)
+	question = models.CharField(max_length=200, default='some answ', blank=True)
+	first_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	second_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	third_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	fourth_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	good_answ = models.IntegerField(default=0, blank=True)
 
 
 	def __str__(self):
@@ -43,11 +43,11 @@ class MediumQuest(models.Model):
 
 	objects = UsersManager()
 
-	question = models.CharField(max_length=200, default='some answ')
-	first_answ = models.CharField(max_length=50, default='some answ')
-	second_answ = models.CharField(max_length=50, default='some answ')
-	third_answ = models.CharField(max_length=50, default='some answ')
-	fourth_answ = models.CharField(max_length=50, default='some answ')
+	question = models.CharField(max_length=200, default='some answ', blank=True)
+	first_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	second_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	third_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	fourth_answ = models.CharField(max_length=50, default='some answ', blank=True)
 	good_answ = models.IntegerField(default=0)
 	
 
@@ -63,11 +63,11 @@ class HardQuest(models.Model):
 
 	objects = UsersManager()
 
-	question = models.CharField(max_length=200, default='some answ')
-	first_answ = models.CharField(max_length=50, default='some answ')
-	second_answ = models.CharField(max_length=50, default='some answ')
-	third_answ = models.CharField(max_length=50, default='some answ')
-	fourth_answ = models.CharField(max_length=50, default='some answ')
+	question = models.CharField(max_length=200, default='some answ', blank=True)
+	first_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	second_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	third_answ = models.CharField(max_length=50, default='some answ', blank=True)
+	fourth_answ = models.CharField(max_length=50, default='some answ', blank=True)
 	good_answ = models.IntegerField(default=0)
 	
 

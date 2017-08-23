@@ -1,98 +1,116 @@
 {% extends 'home/base.html' %}
+{% load extra_tags %}
 
 {% block content %}
 
 	{% block content_div %}
-	
-		{% for quest in chosen_questions %}
-			<div class="container">
-				<div class="quiz-content">
-					<div class="container-fluid">
-						<div class="quest-name">
-							<span style="font-weight: 800; font-size: 20px;">{{ quest.question }}</span>
-						</div>
-						<div class="question-option">
-							<label class="form-check-label">
-								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" checked>
-								{{ quest.first_answ }}
-							</label>
-						</div>
-						<div class="question-option">
-							<label class="form-check-label">
-								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-								{{ quest.second_answ }}
-							</label><br>
-						</div>
-						<div class="question-option">
-							<label class="form-check-label">
-								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-								{{ quest.third_answ }}
-							</label><br>
-						</div>
-						<div class="question-option">
-							<label class="form-check-label">
-								<input class="form-check-input" type="radio" name="choice{{ forloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-								{{ quest.fourth_answ }}
-							</label>
-						</div>
-					</div>
-				</div>	
-		{% endfor %}
-				<div class="pagination">
-					{% if chosen_questions.number < chosen_questions.paginator.num_pages %}
-						<form action="?page={{ chosen_questions.next_page_number }}" method="get">
-							{% csrf_token %}
-							<a href="?page={{ chosen_questions.next_page_number }}">
-								<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-									Submit
-								</button>
-							</a>
-						</form>
-					{% endif %}
-					{% if chosen_questions.number == chosen_questions.paginator.num_pages %}
-
-						<a href="{% url 'tennis:submit' %}">next</a>
-							<form action="{% url 'tennis:submit' %}" method="get">
-								{% csrf_token %}
-									<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-										Submit
-									</button>
-							</form>
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">You finished!</h4>
-								</div>
-								<div class="modal-body">
-									Thank you for answering questions! You can save your score!
-								</div>
-								<div class="modal-footer">
-									<a href="" data-dismiss="modal" onclick="javascript:window.location={% url 'home:index' %}">
-										<button type="button" class="btn btn-default" data-dismiss="modal">
-											No, thanks!
-										</button>
-									</a>
-									<a href="{% url 'tennis:submit' %}" class="submit-change">
-										<button type="button" class="btn btn-primary">
-											Save score
-										</button>
-									</a>
-								</div>
-								</div>
+		{% if chosen_questions %}
+		<div class="container">
+			{% if chosen_questions.has_next %}
+				<form action="?page={{ chosen_questions.next_page_number }}" method="post">
+					{% csrf_token %}
+					{{ formset.management_form }}
+					{% for form in formset.forms %}
+					{% for question in chosen_questions %}
+						{{ form.id }}
+						<!-- Display each form -->
+						<div class="quiz-content">
+							<div class="quiz-question">
+								{{ question.question }}
+							</div>
+							<div class="quiz-option">
+								{{ form.first_answ }}{{ question.first_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.second_answ }}{{ question.second_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.third_answ }}{{ question.third_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.fourth_answ }}{{ question.fourth_answ }}
 							</div>
 						</div>
-					{% endif %}
-				</div>
-				<div class="progress">
-					{% for value in progress_list %}
-						<div class="progress-bar" role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value }}%;">
-							<span class="sr-only">{{ value }}%</span>
+					{% endfor %}
+					{% endfor %}
+					<div class="pagination">
+						<button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							Submit
+						</button>
+					</div>
+				</form>
+			{% endif %}
+			{% if chosen_questions.number == chosen_questions.paginator.num_pages %}
+				<form action="{% url 'home:index' %}" method="post">
+					{% csrf_token %}
+					{{ formset.management_form }}
+					{% for form in formset.forms %}
+					{% for question in chosen_questions %}
+						{{ form.id }}
+						<!-- Display each form -->
+						<div class="quiz-content">
+							<div class="quiz-question">
+								{{ question.question }}
+							</div>
+							<div class="quiz-option">
+								{{ form.first_answ }}{{ question.first_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.second_answ }}{{ question.second_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.third_answ }}{{ question.third_answ }}
+							</div>
+							<div class="quiz-option">
+								{{ form.fourth_answ }}{{ question.fourth_answ }}
+							</div>
 						</div>
 					{% endfor %}
+					{% endfor %}
+					<div class="pagination">
+						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							Submit
+						</button>
+					</div>
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">You finished!</h4>
+							</div>
+							<div class="modal-body">
+								Thank you for answering questions! You can save your score!
+							</div>
+							<div class="modal-footer">
+								<a href="" data-dismiss="modal" onclick="javascript:window.location={% url 'home:index' %}">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										No, thanks!
+									</button>
+								</a>
+									<button type="submit" class="btn btn-primary">
+										Save score
+									</button>
+								</a>
+							</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				</form>
+		</div>
+		{% else %}
+			<p>There are no objects.</p>
+		{% endif %}
+
+		{% for value in progress_list %}
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ value }}%;">
+						<span class="sr-only">{{ value }}%</span>
+					</div>
 				</div>
 			</div>
-	{% endblock %}
+		{% endfor %}
 
+	{% endblock %}
 {% endblock %}
