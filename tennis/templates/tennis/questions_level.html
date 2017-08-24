@@ -41,7 +41,7 @@
 				</form>
 			{% endif %}
 			{% if chosen_questions.number == chosen_questions.paginator.num_pages %}
-				<form action="{% url 'home:index' %}" method="post">
+				<form action="{% url 'tennis:submit' %}" method="post">
 					{% csrf_token %}
 					{{ formset.management_form }}
 					{% for form in formset.forms %}
