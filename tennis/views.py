@@ -35,7 +35,18 @@ def compare_results(request):
 		if answ_transform[index] == request.session['answers'][index]:
 
 			good_answ += 1
-			score += 2
+
+			if request.session['undergo_test'] == "Easy":
+				
+				score += 2
+			
+			elif request.session['undergo_test'] == "Medium":
+
+				score += 4
+
+			else:
+
+				score += 6
 
 	request.session['points'] = score
 	request.session['final_answers'] = good_answ
@@ -103,6 +114,7 @@ def levels(request):
 		request.session['choice'] = ""
 		request.session['final_answers'] = ""
 		request.session['points'] = ""
+		request.session['undergo_test'] = ""
 		
 		user_answers = []
 		request.session['user_answers'] = user_answers
@@ -133,6 +145,7 @@ def easy(request):
 
 
 	FormSet = modelformset_factory(EasyQuest, form=EasyForm, extra=0)
+	request.session['undergo_test'] = 'Easy'
 
 	if request.method == 'GET':
 		
@@ -186,6 +199,7 @@ def medium(request):
 
 
 	FormSet = modelformset_factory(MediumQuest, form=MediumForm, extra=0)
+	request.session['undergo_test'] = 'Medium'
 
 	if request.method == 'GET':
 		
@@ -239,6 +253,7 @@ def hard(request):
 
 
 	FormSet = modelformset_factory(HardQuest, form=HardForm, extra=0)
+	request.session['undergo_test'] = 'Hard'
 
 	if request.method == 'GET':
 		
