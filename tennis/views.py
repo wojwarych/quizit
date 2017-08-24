@@ -7,8 +7,105 @@ from .models import EasyQuest, MediumQuest, HardQuest
 from .forms import EasyForm, MediumForm, HardForm
 
 
+"""FUNCTIONS USED IN VIEWS"""
+def collect_answer(request):
 
+
+	if "question-option" in request.POST:
+
+		request.session['choice'] = (
+		request.POST.get("question-option", ""))
+
+		request.session['user_answers'].append(request.session['choice'])
+
+
+
+def compare_results(request):
+
+	score = 0
+	good_answ = 0
+	
+	answ_transform = request.session['user_answers']
+	for index, value in enumerate(answ_transform):
+
+		answ_transform[index] = int(value)
+
+	for index, value in enumerate(answ_transform):
+
+		if answ_transform[index] == request.session['answers'][index]:
+
+			good_answ += 1
+			score += 2
+
+	request.session['points'] = score
+	request.session['final_answers'] = good_answ
+
+
+def create_quiz(request, database, level_db_session):
+
+
+	query_data = request.session.get(level_db_session)
+	query = database.objects.filter(id__in=query_data)
+	request.session['answers'] = list(query.values_list('good_answ', flat=True))
+
+	return query
+
+
+
+def paginate_query(request, query, num=1):
+
+
+	paginator = Paginator(query, num)
+	page = request.GET.get('page')
+
+	try:
+		
+		questions = paginator.page(page)
+		
+	except PageNotAnInteger:
+		
+		questions = paginator.page(1)
+		
+	except EmptyPage:
+		
+		questions = paginator.page(paginator.num_pages)
+
+	return questions, page
+
+
+
+def paginate_progress_bar(related_questions, page, num=1):
+
+
+	bar_division = (100//related_questions.paginator.num_pages)
+	values_list = (
+		[x*bar_division for x in range(0, related_questions.paginator.num_pages)])
+	paginate_progress = Paginator(values_list, num)
+
+	try:
+		view_progress = paginate_progress.page(page)
+		
+	except PageNotAnInteger:
+		view_progress = paginate_progress.page(1)
+		
+	except EmptyPage:
+		view_progress = paginator.page(paginator.num_pages)
+
+	return view_progress
+
+
+
+"""VIEWS"""
 def levels(request):
+
+	if request.method == 'GET':
+
+		request.session['choice'] = ""
+		request.session['final_answers'] = ""
+		request.session['points'] = ""
+		
+		user_answers = []
+		request.session['user_answers'] = user_answers
 
 
 	objects = [EasyQuest, MediumQuest, HardQuest]
@@ -16,6 +113,7 @@ def levels(request):
 	for _, each in enumerate(objects):
 
 		objects_attr[each.__name__] = each
+
 
 	questions_selection = {}
 	for key, value in objects_attr.items():
@@ -27,9 +125,8 @@ def levels(request):
 
 		request.session[key+'Num'] = questions_selection[key]
 
-
-
 	return render(request, 'tennis/levels.html')
+
 
 
 def easy(request):
@@ -39,38 +136,11 @@ def easy(request):
 
 	if request.method == 'GET':
 		
-		query_data = request.session.get('EasyQuestNum')
-		query = EasyQuest.objects.filter(id__in=query_data)
-		paginator = Paginator(query, 1)
-		page = request.GET.get('page')
+		query = create_quiz(request, EasyQuest, 'EasyQuestNum')
 
-		request.session['answers'] = list(query.values_list('good_answ', flat=True))
+		questions, page = paginate_query(request, query)
 
-		try:
-		
-			questions = paginator.page(page)
-		
-		except PageNotAnInteger:
-		
-			questions = paginator.page(1)
-		
-		except EmptyPage:
-		
-			questions = paginator.page(paginator.num_pages)
-
-		progress_bar_div = (100//questions.paginator.num_pages)
-		progress_bar_list = (
-		[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-		paginate_progress = Paginator(progress_bar_list, 1)
-	
-		try:
-			view_progress = paginate_progress.page(page)
-		
-		except PageNotAnInteger:
-			view_progress = paginate_progress.page(1)
-		
-		except EmptyPage:
-			view_progress = paginator.page(paginator.num_pages)
+		view_progress = paginate_progress_bar(questions, page)
 	
 		page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -91,52 +161,13 @@ def easy(request):
 
 		if form.is_valid():
 
-			if "form-0-first_answ" in request.POST:
+			collect_answer(request)
 
-				request.session['first_answ'] = request.POST.get("form-0-first_answ", "")
+			query = create_quiz(request, EasyQuest, 'EasyQuestNum')
 
-			elif "form-0-second_answ" in request.POST:
+			questions, page = paginate_query(request, query)
 
-				request.session['second_answ'] = request.POST.get("form-0-second_answ", "")
-
-			elif "form-0-third_answ" in request.POST:
-
-				request.session['third_answ'] = request.POST.get("form-0-third_answ", "")
-			
-			else:
-
-				request.session['fourth_answ'] = request.POST.get("form-0-fourht_answ", "")
-
-			query_data = request.session.get('EasyQuestNum')
-			query = EasyQuest.objects.filter(id__in=query_data)
-			paginator = Paginator(query, 1)
-			page = request.GET.get('page')
-		
-			try:
-		
-				questions = paginator.page(page)
-		
-			except PageNotAnInteger:
-		
-				questions = paginator.page(1)
-		
-			except EmptyPage:
-		
-				questions = paginator.page(paginator.num_pages)
-
-			progress_bar_div = (100//questions.paginator.num_pages)
-			progress_bar_list = (
-			[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-			paginate_progress = Paginator(progress_bar_list, 1)
-	
-			try:
-				view_progress = paginate_progress.page(page)
-		
-			except PageNotAnInteger:
-				view_progress = paginate_progress.page(1)
-		
-			except EmptyPage:
-				view_progress = paginator.page(paginator.num_pages)
+			view_progress = paginate_progress_bar(questions, page)
 
 			page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -148,6 +179,7 @@ def easy(request):
 			'progress_list': view_progress}
 
 			return render(request, 'tennis/questions_level.html', context)
+
 
 
 def medium(request):
@@ -157,38 +189,11 @@ def medium(request):
 
 	if request.method == 'GET':
 		
-		query_data = request.session.get('MediumQuestNum')
-		query = MediumQuest.objects.filter(id__in=query_data)
-		paginator = Paginator(query, 1)
-		page = request.GET.get('page')
+		query = create_quiz(request, MediumQuest, 'MediumQuestNum')
 
-		request.session['answers'] = list(query.values_list('good_answ', flat=True))
+		questions, page = paginate_query(request, query)
 
-		try:
-		
-			questions = paginator.page(page)
-		
-		except PageNotAnInteger:
-		
-			questions = paginator.page(1)
-		
-		except EmptyPage:
-		
-			questions = paginator.page(paginator.num_pages)
-
-		progress_bar_div = (100//questions.paginator.num_pages)
-		progress_bar_list = (
-		[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-		paginate_progress = Paginator(progress_bar_list, 1)
-	
-		try:
-			view_progress = paginate_progress.page(page)
-		
-		except PageNotAnInteger:
-			view_progress = paginate_progress.page(1)
-		
-		except EmptyPage:
-			view_progress = paginator.page(paginator.num_pages)
+		view_progress = paginate_progress_bar(questions, page)
 	
 		page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -209,52 +214,13 @@ def medium(request):
 
 		if form.is_valid():
 
-			if "form-0-first_answ" in request.POST:
+			collect_answer(request)
 
-				request.session['first_answ'] = request.POST.get("form-0-first_answ", "")
+			query = create_quiz(request, MediumQuest, 'MediumQuestNum')
 
-			elif "form-0-second_answ" in request.POST:
+			questions, page = paginate_query(request, query)
 
-				request.session['second_answ'] = request.POST.get("form-0-second_answ", "")
-
-			elif "form-0-third_answ" in request.POST:
-
-				request.session['third_answ'] = request.POST.get("form-0-third_answ", "")
-			
-			else:
-
-				request.session['fourth_answ'] = request.POST.get("form-0-fourht_answ", "")
-
-			query_data = request.session.get('MediumQuestNum')
-			query = MediumQuest.objects.filter(id__in=query_data)
-			paginator = Paginator(query, 1)
-			page = request.GET.get('page')
-		
-			try:
-		
-				questions = paginator.page(page)
-		
-			except PageNotAnInteger:
-		
-				questions = paginator.page(1)
-		
-			except EmptyPage:
-		
-				questions = paginator.page(paginator.num_pages)
-
-			progress_bar_div = (100//questions.paginator.num_pages)
-			progress_bar_list = (
-			[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-			paginate_progress = Paginator(progress_bar_list, 1)
-	
-			try:
-				view_progress = paginate_progress.page(page)
-		
-			except PageNotAnInteger:
-				view_progress = paginate_progress.page(1)
-		
-			except EmptyPage:
-				view_progress = paginator.page(paginator.num_pages)
+			view_progress = paginate_progress_bar(questions, page)
 
 			page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -266,6 +232,8 @@ def medium(request):
 			'progress_list': view_progress}
 
 			return render(request, 'tennis/questions_level.html', context)
+
+
 
 def hard(request):
 
@@ -274,38 +242,11 @@ def hard(request):
 
 	if request.method == 'GET':
 		
-		query_data = request.session.get('HardQuestNum')
-		query = HardQuest.objects.filter(id__in=query_data)
-		paginator = Paginator(query, 1)
-		page = request.GET.get('page')
+		query = create_quiz(request, HardQuest, 'HardQuestNum')
 
-		request.session['answers'] = list(query.values_list('good_answ', flat=True))
+		questions, page = paginate_query(request, query)
 
-		try:
-		
-			questions = paginator.page(page)
-		
-		except PageNotAnInteger:
-		
-			questions = paginator.page(1)
-		
-		except EmptyPage:
-		
-			questions = paginator.page(paginator.num_pages)
-
-		progress_bar_div = (100//questions.paginator.num_pages)
-		progress_bar_list = (
-		[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-		paginate_progress = Paginator(progress_bar_list, 1)
-	
-		try:
-			view_progress = paginate_progress.page(page)
-		
-		except PageNotAnInteger:
-			view_progress = paginate_progress.page(1)
-		
-		except EmptyPage:
-			view_progress = paginator.page(paginator.num_pages)
+		view_progress = paginate_progress_bar(questions, page)
 	
 		page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -326,52 +267,13 @@ def hard(request):
 
 		if form.is_valid():
 
-			if "form-0-first_answ" in request.POST:
+			collect_answer(request)
 
-				request.session['first_answ'] = request.POST.get("form-0-first_answ", "")
+			query = create_quiz(request, HardQuest, 'HardQuestNum')
 
-			elif "form-0-second_answ" in request.POST:
+			questions, page = paginate_query(request, query)
 
-				request.session['second_answ'] = request.POST.get("form-0-second_answ", "")
-
-			elif "form-0-third_answ" in request.POST:
-
-				request.session['third_answ'] = request.POST.get("form-0-third_answ", "")
-			
-			else:
-
-				request.session['fourth_answ'] = request.POST.get("form-0-fourht_answ", "")
-
-			query_data = request.session.get('HardQuestNum')
-			query = HardQuest.objects.filter(id__in=query_data)
-			paginator = Paginator(query, 1)
-			page = request.GET.get('page')
-		
-			try:
-		
-				questions = paginator.page(page)
-		
-			except PageNotAnInteger:
-		
-				questions = paginator.page(1)
-		
-			except EmptyPage:
-		
-				questions = paginator.page(paginator.num_pages)
-
-			progress_bar_div = (100//questions.paginator.num_pages)
-			progress_bar_list = (
-			[x*progress_bar_div for x in range(0, questions.paginator.num_pages)])
-			paginate_progress = Paginator(progress_bar_list, 1)
-	
-			try:
-				view_progress = paginate_progress.page(page)
-		
-			except PageNotAnInteger:
-				view_progress = paginate_progress.page(1)
-		
-			except EmptyPage:
-				view_progress = paginator.page(paginator.num_pages)
+			view_progress = paginate_progress_bar(questions, page)
 
 			page_query = query.filter(id__in=[question.id for question in questions])
 		
@@ -385,7 +287,13 @@ def hard(request):
 			return render(request, 'tennis/questions_level.html', context)
 
 
+
 def submit(request):
 
+	if request.method == 'POST':
 
-	return HttpResponse("Thank you for answering questions!")
+		collect_answer(request)
+
+		compare_results(request)
+
+	return render(request, 'home/base.html')
