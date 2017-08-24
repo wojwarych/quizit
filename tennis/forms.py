@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import ModelForm, TextInput, RadioSelect
+from django.forms import ModelForm
+from .widgets.widget import CustomTextInput
 from .models import EasyQuest, MediumQuest, HardQuest
 
 
@@ -22,10 +23,10 @@ class EasyForm(ModelForm):
 			'fourth_answ': "question-option",
 		}		
 		widgets = {
-			'first_answ': TextInput(attrs={'type': 'radio'}),
-			'second_answ': TextInput(attrs={'type': 'radio'}),
-			'third_answ': TextInput(attrs={'type': 'radio'}),
-			'fourth_answ': TextInput(attrs={'type': 'radio'}),
+			'first_answ': CustomTextInput(attrs={'type': 'radio', 'value': '1'}),
+			'second_answ': CustomTextInput(attrs={'type': 'radio', 'value': '2'}),
+			'third_answ': CustomTextInput(attrs={'type': 'radio', 'value': '3'}),
+			'fourth_answ': CustomTextInput(attrs={'type': 'radio', 'value': '4'}),
 			}
 
 
@@ -48,10 +49,10 @@ class MediumForm(ModelForm):
 			'fourth_answ': "question-option",
 		}		
 		widgets = {
-			'first_answ': TextInput(attrs={'type': 'radio'}),
-			'second_answ': TextInput(attrs={'type': 'radio'}),
-			'third_answ': TextInput(attrs={'type': 'radio'}),
-			'fourth_answ': TextInput(attrs={'type': 'radio'}),
+			'first_answ': CustomTextInput(attrs={'type': 'radio', 'value': '1'}),
+			'second_answ': CustomTextInput(attrs={'type': 'radio', 'value': '2'}),
+			'third_answ': CustomTextInput(attrs={'type': 'radio', 'value': '3'}),
+			'fourth_answ': CustomTextInput(attrs={'type': 'radio', 'value': '4'}),
 			}
 
 
@@ -74,8 +75,8 @@ class HardForm(ModelForm):
 			'fourth_answ': "question-option",
 		}		
 		widgets = {
-			'first_answ': TextInput(attrs={'type': 'radio'}),
-			'second_answ': TextInput(attrs={'type': 'radio'}),
-			'third_answ': TextInput(attrs={'type': 'radio'}),
-			'fourth_answ': TextInput(attrs={'type': 'radio'}),
+			'first_answ': CustomTextInput(attrs={'type': 'radio', 'value': '1'}),
+			'second_answ': CustomTextInput(attrs={'type': 'radio', 'value': '2'}),
+			'third_answ': CustomTextInput(attrs={'type': 'radio', 'value': '3'}),
+			'fourth_answ': CustomTextInput(attrs={'type': 'radio', 'value': '4'}),
 			}
