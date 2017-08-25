@@ -1,0 +1,147 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+	
+	{% block title_div %}
+		<div class="page-header">
+			<h1>
+				<a href="{% url 'home:index' %}">
+					Quiz It!<br><small>Check your knowledge in a given topic!</small>
+				</a>
+			</h1>
+		</div>
+	{% endblock %}
+	
+	{% block menu_div %}
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'home:index' %}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="dropdown">
+						<a href="{% url 'home:quizes' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizes<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Literature</a></li>
+							<li><a href="#">Music</a></li>
+							<li><a href="{% url 'tennis:levels' %}">Tennis</a></li>
+						</ul>
+					</li>
+					<li class="active"><a href="{% url 'ranking:ranking' %}">Ranking</a></li>
+					<li><a href="{% url 'home:about' %}">About</a></li>
+					<li><a href="{% url 'home:contact' %}">Contact</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	{% endblock %}
+
+	{% block content_div %}
+
+	<div class="container">
+		<p>Top 5 in Easy Literature Quiz</p>
+		<div class="col-md-4">
+				{% for user in literature_rank_easy %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.easyquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Medium Literature Quiz</p>
+		<div class="col-md-4">
+				{% for user in literature_rank_medium %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.mediumquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Hard Literature Quiz</p>
+		<div class="col-md-4">
+				{% for user in literature_rank_hard %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.hardquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<p>Top 5 in Easy Music Quiz</p>
+		<div class="col-md-4">
+				{% for user in Music_rank_easy %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.easyquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Medium Music Quiz</p>
+		<div class="col-md-4">
+				{% for user in music_rank_medium %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.mediumquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Hard Music Quiz</p>
+		<div class="col-md-4">
+				{% for user in music_rank_hard %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.hardquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+			</div>
+	</div>
+	<div class="container">
+		<p>Top 5 in Easy Tennis Quiz</p>
+		<div class="col-md-4">
+				{% for user in tennis_rank_easy %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.easyquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Medium Tennis Quiz</p>
+		<div class="col-md-4">
+				{% for user in tennis_rank_medium %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.mediumquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+		</div>
+		<p>Top 5 in Hard Tennis Quiz</p>
+		<div class="col-md-4">
+				{% for user in tennis_rank_hard %}
+					<ul class="list-group">
+		  				<li class="list-group-item justify-content-between">
+		  					{{ user.username }}
+		    			<span class="badge badge-default badge-pill">{{ user.hardquest }}</span>
+		  				</li>
+					</ul>
+			{% endfor %}
+			</div>
+	</div>
+	{% endblock %}
+
+{% endblock %}

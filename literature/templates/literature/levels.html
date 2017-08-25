@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+	{% block title_div %}
+		<div class="page-header">
+			<h1>
+				<a href="{% url 'home:index' %}">
+					Quiz It!</a><br><small>Check your knowledge in a given topic!</small>
+				</a>
+			</h1>
+		</div>
+	{% endblock %}
+
+	{% block menu_div %}
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'home:index' %}">Home</a></li>
+					<li class="dropdown active">
+						<a href="{% url 'home:quizes' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizes<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'literature:levels' %}">Literature</a></li>
+							<li><a href="{% url 'music:levels' %}">Music</a></li>
+							<li><a href="{% url 'tennis:levels' %}">Tennis</a></li>
+						</ul>
+					</li>
+					<li><a href="{% url 'ranking:ranking' %}">Ranking</a></li>
+					<li><a href="{% url 'home:about' %}">About</a></li>
+					<li><a href="{% url 'home:contact' %}">Contact</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	{% endblock %}
+
+	{% block content_div %}
+		<div class="container">
+			<div class="col-md-12">
+				<div class="main-content">
+					<span style="text-align:center;">
+						<h3>Choose level of quiz</h3>
+						<div class="center-block">
+							<a href="{% url 'literature:easy' %}" class="level-url">
+								<button type="button" class="btn btn-success">
+								<span style="font-size: 25px;">Easy</span>
+								</button>
+							</a>
+							<a href="{% url 'literature:medium' %}" class="level-url">
+								<button type="button" class="btn btn-success">
+								<span style="font-size: 25px;">Medium</span>
+								</button>
+							</a>
+							<a href="{% url 'literature:hard' %}" class="level-url">
+								<button type="button" class="btn btn-success">
+								<span style="font-size: 25px;">Hard</span>
+								</button>
+							</a>
+						</div>
+					</span>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="description">
+					<p>Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles).</p>
+					<p>Tennis is played by millions of recreational players and is also a popular worldwide spectator sport. The four Grand Slam tournaments (also referred to as the "Majors") are especially popular: the Australian Open played on hard courts, the French Open played on red clay courts, Wimbledon played on grass courts, and the US Open played also on hard courts.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="image">
+					<img src="#" class="img-responsive" alt="tennis">
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
+{% endblock %}
