@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'home',
     'tennis',
+    'literature',
+    'music',
+    'ranking',
 ]
 
 MIDDLEWARE = [

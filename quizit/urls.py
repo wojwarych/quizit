@@ -21,6 +21,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home/', include('home.urls')),
     url(r'^tennis/', include('tennis.urls')),
+    url(r'^ranking/', include('ranking.urls')),
+    url(r'^literature/', include('literature.urls')),
+    url(r'^music/', include('music.urls')),
 ]
 
 if settings.DEBUG:
