@@ -80,3 +80,10 @@ class HardForm(ModelForm):
 			'third_answ': CustomTextInput(attrs={'type': 'radio', 'value': '3'}),
 			'fourth_answ': CustomTextInput(attrs={'type': 'radio', 'value': '4'}),
 			}
+
+
+
+class NameForm(forms.Form):
+
+
+	username = forms.CharField(label='Your name', max_length=50, required=True)

@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.forms import modelformset_factory
+from django.db.utils import IntegrityError
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import EasyQuest, MediumQuest, HardQuest
-from .forms import EasyForm, MediumForm, HardForm
+from .forms import EasyForm, MediumForm, HardForm, NameForm
+from ranking.models import RankingTennis
 
 
 """FUNCTIONS USED IN VIEWS"""
@@ -115,6 +116,7 @@ def levels(request):
 		request.session['final_answers'] = ""
 		request.session['points'] = ""
 		request.session['undergo_test'] = ""
+		request.session['username'] = ""
 		
 		user_answers = []
 		request.session['user_answers'] = user_answers
@@ -236,7 +238,8 @@ def medium(request):
 
 			view_progress = paginate_progress_bar(questions, page)
 
-			page_query = query.filter(id__in=[question.id for question in questions])
+			page_query = (
+				query.filter(id__in=[question.id for question in questions]))
 		
 			formset = FormSet(queryset=page_query)
 
@@ -263,7 +266,8 @@ def hard(request):
 
 		view_progress = paginate_progress_bar(questions, page)
 	
-		page_query = query.filter(id__in=[question.id for question in questions])
+		page_query = (
+			query.filter(id__in=[question.id for question in questions]))
 		
 		formset = FormSet(queryset=page_query)
 
@@ -290,7 +294,8 @@ def hard(request):
 
 			view_progress = paginate_progress_bar(questions, page)
 
-			page_query = query.filter(id__in=[question.id for question in questions])
+			page_query = (
+				query.filter(id__in=[question.id for question in questions]))
 		
 			formset = FormSet(queryset=page_query)
 
@@ -305,10 +310,53 @@ def hard(request):
 
 def submit(request):
 
+
 	if request.method == 'POST':
 
 		collect_answer(request)
 
 		compare_results(request)
 
-	return render(request, 'home/base.html')
+		form = NameForm(request.POST)
+		# check whether it's valid:
+		if form.is_valid():
+
+			request.session['username'] = form.cleaned_data['username']
+
+			if request.session['undergo_test'] == 'Easy':
+				
+				try:	
+					new_score = RankingTennis.objects.create(
+						username=request.session['username'],
+						easyquest=request.session['points'])
+
+				except IntegrityError as e:
+					return render(request, 'home/base.html', {"message": e.message})
+
+			elif request.session['undergo_test'] == 'Medium':
+
+				try:
+					new_score = RankingTennis.objects.create(
+						username=request.session['username'],
+						mediumquest=request.session['points'])
+
+				except IntegrityError as e:
+					return render(request, 'home/base.html', {"message": e.message})
+
+			else:
+
+				try:
+					new_score = RankingTennis.objects.create(
+						username=request.session['username'],
+						mediumquest=request.session['points'])
+
+				except IntegrityError as e:
+					return render(request, 'home/base.html', {"message": e.message})
+
+			return redirect('ranking:ranking')
+
+	# if a GET (or any other method) we'll create a blank form
+	else:
+		form = NameForm()
+
+	return render(request, 'tennis/add_score.html', {'form': form})
