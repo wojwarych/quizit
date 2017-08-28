@@ -36,15 +36,18 @@
 	{% endblock %}
 
 	{% block content_div %}
-		<div class="container">
+		<div class="container" style="min-height:69%;">
 			<div class="form-content">
-				<div class="form-option">
-					<form action="{% url 'music:submit' %}" method="post">
-	    				{% csrf_token %}
-	    				{{ form }}
-	    				<button type="submit" value="Submit" class="btn btn-primary btn-lg">Save</button>
+					<p><b>Congratulations! You scored {{ score }} points and answered on {{ how_many }}/10 questions!</b></p>
+					<form action="{% url 'tennis:submit' %}" method="post">
+	    				<div class="form-wrapper">
+	    					{{ form.non_field_errors }}
+	    					{% csrf_token %}
+	    					{{ form.username.errors }}
+	    					{{ form.username|placeholder:"Type your nickname here..." }}
+	    				</div>
+	    				<button type="submit" value="Submit" class="btn btn-primary btn-lg"><span style="font-size:30px;">Save</span></button>
 					</form>
-				</div>
 			</div>
 		</div>
 	{% endblock %}

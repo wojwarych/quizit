@@ -358,4 +358,7 @@ def submit(request):
 	else:
 		form = NameForm()
 
-	return render(request, 'literature/add_score.html', {'form': form})
+	return render(
+		request,
+		'literature/add_score.html',
+		{'form': form, 'score': score,'how_many' : how_many})
