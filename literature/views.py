@@ -355,7 +355,6 @@ def submit(request):
 
 			return redirect('ranking:ranking')
 
-	# if a GET (or any other method) we'll create a blank form
 	else:
 		form = NameForm()
 
