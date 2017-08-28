@@ -10,6 +10,10 @@ class RankingTennis(models.Model):
 	mediumquest = models.PositiveSmallIntegerField(blank=True, null=True)
 	hardquest = models.PositiveSmallIntegerField(blank=True, null=True)
 
+	def __str__(self):
+
+		return self.username
+
 
 
 class RankingLiterature(models.Model):
@@ -20,6 +24,10 @@ class RankingLiterature(models.Model):
 	mediumquest = models.PositiveSmallIntegerField(blank=True, null=True)
 	hardquest = models.PositiveSmallIntegerField(blank=True, null=True)
 
+	def __str__(self):
+
+		return self.username
+
 
 
 class RankingMusic(models.Model):
@@ -29,3 +37,7 @@ class RankingMusic(models.Model):
 	easyquest = models.PositiveSmallIntegerField(blank=True, null=True)
 	mediumquest = models.PositiveSmallIntegerField(blank=True, null=True)
 	hardquest = models.PositiveSmallIntegerField(blank=True, null=True)
+
+	def __str__(self):
+
+		return self.username
