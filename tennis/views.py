@@ -359,4 +359,10 @@ def submit(request):
 	else:
 		form = NameForm()
 
-	return render(request, 'tennis/add_score.html', {'form': form})
+	score = request.session['points']
+	how_many = request.session['final_answers']
+
+	return render(
+		request,
+		'tennis/add_score.html',
+		{'form': form, 'score': score,'how_many' : how_many})
