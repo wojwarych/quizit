@@ -36,25 +36,35 @@
 	{% endblock %}
 
 	{% block content_div %}
-		<div class="container">
-			<div class="main-content">
-				<a href="{% url 'literature:levels' %}">
-					<button type="button" class="btn btn-success">
-						<span style="font-size: 18px;">Literature Quiz</span>
-					</button>
-				</a>
-				<a href="{% url 'music:levels' %}">
-					<button type="button" class="btn btn-success">
-						<span style="font-size: 18px;">Music Quiz</span>
-					</button>
-				</a>
-				<a href="{% url 'tennis:levels' %}">
-					<button type="button" class="btn btn-success">
-						<span style="font-size: 18px;">Tennis Quiz</span>
-					</button>
-				</a>
+			<div class="main-content" style="min-height: 69%;">
+				<div class="container" style="padding-bottom:20px;">
+					<span class="align-center">
+						<p><b>Choose the quiz category you want to solve!</b></p>
+					</span>
+					<a href="{% url 'literature:levels' %}">
+						<button type="button" class="btn btn-success">
+							<span style="font-size: 18px;">Literature Quiz</span>
+						</button>
+					</a>
+					<a href="{% url 'music:levels' %}">
+						<button type="button" class="btn btn-success">
+							<span style="font-size: 18px;">Music Quiz</span>
+						</button>
+					</a>
+					<a href="{% url 'tennis:levels' %}">
+						<button type="button" class="btn btn-success">
+							<span style="font-size: 18px;">Tennis Quiz</span>
+						</button>
+					</a>
+				</div>
+				<div class="container" style="padding-top:10px;">
+					<p>You can choose from three categories</p>
+					<p>In each category there are three levels of difficulty</p>
+					<p>For each good answer in easy level you get 2 points</p>
+					<p>For each good answer in medium level you get 4 points</p>
+					<p>For each good answer in hard level you get 6 points</p>
+				</div>
 			</div>
-		</div>
 	{% endblock %}
 
 {% endblock %}

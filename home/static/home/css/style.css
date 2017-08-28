@@ -18,6 +18,9 @@
 		background-color: #222;
 		padding-top: 10px;
 	}
+	article {
+		padding-bottom: 10px;
+	}
 	a:link, a:visited {
 		text-decoration: inherit;
 		color: inherit;
@@ -34,6 +37,14 @@
 		font-size: 20px;
 		padding-left: 10px;
 		padding-right: 10px;
+	}
+	.container > p {
+		text-align: justify;
+		padding-left: 15px;
+	}
+	.align-center > p {
+		text-align: center;
+		padding-bottom: 10px;
 	}
 	.navbar-nav {
 		margin: 0 auto;
@@ -210,4 +221,31 @@
 	}
 	.form-content {
 		text-align: center;
-	}		
+		padding-top: 50px;
+		padding-bottom: 25px;
+	}
+	.form-content > p{
+		text-align: center;
+	}
+	form > .form-wrapper {
+		font-size: 20px;
+		padding-top: 10px;
+		padding-bottom: 15px;
+		font-family: inherit;
+	}
+	.form-wrapper > input {
+		-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
+    	width:300px;
+    	height: 50px;
+	}
+	.form-wrapper > input::placeholder {
+		color: #5bc0de;
+		opacity: 0.75;
+	}
+	form > button {
+		width: 200px;
+		height: 75px;
+		padding-top: 15px;
+	}
