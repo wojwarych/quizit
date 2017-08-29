@@ -10,6 +10,7 @@
 	
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.min.css' %}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}" />
 	<title>Quiz It!</title>
 </head>
@@ -25,9 +26,21 @@
 	{% endblock %}
 	{% block footer %}
 		<footer class="footer">
-			<div class="container-fluid">
-				<p class="text-muted">Place sticky footer content here.</p>
-		  	</div>
+			<div class="footer-wrapper">
+				<div class="footer-content">
+					<p class="text-muted">&copy; 2017 Wojciech Warych</p>
+				</div>
+				<div class="footer-content">
+					<a href="https://github.com/wojwarych/quizit">
+						<i class="fa fa-github-alt" aria-hidden="true"></i>
+					</a>
+				</div>
+				<div class="footer-content">
+					<a href="https://www.facebook.com/wojtek.warych.3">
+						<i class="fa fa-facebook" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
 		</footer>
 	{% endblock %}
 	<script src="{% static 'home/js/jquery-3.2.1.slim.min.js' %}"></script>
