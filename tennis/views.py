@@ -7,6 +7,9 @@ from .models import EasyQuest, MediumQuest, HardQuest
 from .forms import EasyForm, MediumForm, HardForm, NameForm
 from ranking.models import RankingTennis
 
+import os
+from pathlib import Path
+
 
 """FUNCTIONS USED IN VIEWS"""
 def collect_answer(request):
@@ -121,6 +124,25 @@ def levels(request):
 		user_answers = []
 		request.session['user_answers'] = user_answers
 
+	#directory of static files in app
+	rel_path = os.path.abspath(
+		os.path.join(os.getcwd(), 'home/static'))
+	#directory of images in static files
+	img_dir = os.path.abspath(
+		os.path.join(os.getcwd(), 'home/static/home/images/tennis'))
+	#list to stack stored images
+	list_rel_imgs = []
+
+	for item in os.listdir(img_dir):
+
+		#relative path for image -> home\images\tennis\x.jpg
+		image = os.path.relpath(
+			os.path.abspath(os.path.join(img_dir, item)), rel_path)
+		list_rel_imgs.append(image)
+
+
+	context = {'images': list_rel_imgs}
+
 
 	objects = [EasyQuest, MediumQuest, HardQuest]
 	objects_attr = {}
@@ -139,7 +161,7 @@ def levels(request):
 
 		request.session[key+'Num'] = questions_selection[key]
 
-	return render(request, 'tennis/levels.html')
+	return render(request, 'tennis/levels.html', context)
 
 
 
